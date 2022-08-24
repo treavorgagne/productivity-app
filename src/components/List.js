@@ -14,9 +14,13 @@ export function List() {
   const [taskTitle, setTaskTitle] = useState('');
 
   const handleAdd = () => {
-    setTasks(prev => {
-      return [taskTitle, ...prev];
-    });
+    if (taskTitle !== '') {
+      setTasks(prev => {
+        return [taskTitle, ...prev];
+      });
+      document.getElementById('taskTitle').value = '';
+      setTaskTitle('');
+    }
   };
 
   const handleChange = ({ target }) => {
@@ -46,33 +50,35 @@ export function List() {
             <Heading
               textAlign={'left'}
               fontWeight={'500'}
-              fontSize={['22px', '26px', '30px', '34px']}
+              fontSize={['24px', '28px', '32px', '36px']}
               color={'teal'}
             >
               Task List
             </Heading>
-            <Box maxWidth={'800px'}>
+            <Box px={4} maxWidth={'800px'}>
               {tasks.map((task, index) => (
-                <Checkbox
-                  py={1}
-                  w={'100%'}
-                  key={index}
-                  size="lg"
-                  colorScheme="green"
-                >
-                  <Stack direction={'row'} justify="space-between">
+                <Stack direction={'row'} align="center" justify="space-between">
+                  <Checkbox
+                    py={2}
+                    mx={'auto'}
+                    w={'100%'}
+                    key={index}
+                    size="lg"
+                    colorScheme="green"
+                  >
                     <Box>
-                      <Text>{task}</Text>
+                      <Text fontSize={'18px'}>{task}</Text>
                     </Box>
-                    <Button
-                      size={'sm'}
-                      colorScheme={'red'}
-                      onClick={() => handleDelete(index)}
-                    >
-                      X
-                    </Button>
-                  </Stack>
-                </Checkbox>
+                  </Checkbox>
+                  <Button
+                    size={'sm'}
+                    colorScheme={'red'}
+                    onClick={() => handleDelete(index)}
+                    justifySelf={'right'}
+                  >
+                    X
+                  </Button>
+                </Stack>
               ))}
             </Box>
           </Stack>
