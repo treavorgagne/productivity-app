@@ -43,7 +43,7 @@ export function Timer() {
         setTime(time - 1);
       }
     }
-  }, 1);
+  }, 1000);
 
   return (
     <Box mx={'auto'} maxWidth={'800px'}>
