@@ -49,7 +49,7 @@ export function Timer() {
     <Box mx={'auto'} maxWidth={'800px'}>
       <Box>
         <Heading
-          textAlign={'left'}
+          textAlign={['left', 'center', 'center']}
           fontWeight={'500'}
           fontSize={['28px', '36px', '40px', '54px']}
           color={'teal'}
@@ -73,7 +73,7 @@ export function Timer() {
         <Button
           size={'lg'}
           w="50%"
-          fontSize={'24px'}
+          fontSize={['18px', '24px']}
           colorScheme={start ? 'red' : 'green'}
           onClick={handleStart}
         >
@@ -84,7 +84,7 @@ export function Timer() {
           w="50%"
           colorScheme={'yellow'}
           disabled={reset}
-          fontSize={'24px'}
+          fontSize={['18px', '24px']}
           onClick={handleReset}
         >
           Reset
