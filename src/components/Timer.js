@@ -34,7 +34,7 @@ export function Timer() {
     if (start) {
       if (time === 0) {
         setI(i + 1);
-        if (i == 7) {
+        if (i === 7) {
           handleReset();
         } else {
           setTime(pomodoroTime[i + 1]);
@@ -65,7 +65,8 @@ export function Timer() {
       </Box>
       <Box border={'2px'} p={3} borderRadius={'4px'}>
         <Text fontWeight={'500'} fontSize={['28px', '36px', '40px', '54px']}>
-          {Math.floor(time / 60)} MINS {time % 60} SECS
+          {lpad(Math.floor(time / 60).toString())} MINS{' '}
+          {lpad((time % 60).toString())} SECS
         </Text>
       </Box>
       <Stack py={2} direction="row" justify={'space-evenly'}>
@@ -111,4 +112,9 @@ function useInterval(callback, delay) {
       return () => clearInterval(id);
     }
   }, [delay]);
+}
+
+function lpad(str) {
+  while (str.length < 2) str = '0' + str;
+  return str;
 }
