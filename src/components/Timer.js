@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Button, Text, Stack, Heading, Link } from '@chakra-ui/react';
+import { Box, Button, Text, Stack } from '@chakra-ui/react';
 
 export function Timer() {
   const pomodoroTime = [1500, 300, 1500, 300, 1500, 300, 1500, 900];
@@ -47,22 +47,6 @@ export function Timer() {
 
   return (
     <Box mx={'auto'} maxWidth={'800px'}>
-      <Box>
-        <Heading
-          textAlign={['left', 'center', 'center']}
-          fontWeight={'500'}
-          fontSize={['28px', '36px', '40px', '54px']}
-          color={'teal'}
-          pb={'3'}
-        >
-          <Link
-            isExternal
-            href="https://todoist.com/productivity-methods/pomodoro-technique"
-          >
-            Pomodoro.io
-          </Link>
-        </Heading>
-      </Box>
       <Box border={'2px'} p={3} borderRadius={'4px'}>
         <Text fontWeight={'500'} fontSize={['28px', '36px', '40px', '54px']}>
           {lpad(Math.floor(time / 60).toString())} MINS{' '}
