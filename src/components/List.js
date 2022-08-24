@@ -44,7 +44,10 @@ export function List() {
           placeholder="Title"
           size="md"
         />
-        <Button onClick={handleAdd}> Add Task </Button>
+        <Button size={'lg'} fontSize={['18px', '24px']} onClick={handleAdd}>
+          {' '}
+          Add Task{' '}
+        </Button>
         <Box mx={'auto'} maxWidth={'800px'} textAlign="left">
           <Stack w={'100%'} direction={'column'}>
             <Heading
@@ -67,7 +70,7 @@ export function List() {
                     colorScheme="green"
                   >
                     <Box>
-                      <Text fontSize={'18px'}>{task}</Text>
+                      <Text fontSize={'24px'}>{task}</Text>
                     </Box>
                   </Checkbox>
                   <Button
