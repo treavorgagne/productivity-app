@@ -1,6 +1,6 @@
-# productivity-app
+# productivity-web-app
 
-productivity-app timer countdown and list
+Productivity web app based on pomodoro principle. Using a timer and list to track tasks. Using React.js hooks, state, and Chakra UI.
 
 # start locally using
 
