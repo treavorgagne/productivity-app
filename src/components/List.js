@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 
 export function List() {
-  const [tasks, setTasks] = useState(['Add my tasks to do list']);
+  const [tasks, setTasks] = useState(['Add tasks to list']);
   const [taskTitle, setTaskTitle] = useState('');
 
   const handleAdd = () => {
