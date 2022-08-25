@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Box, Button, Text, Stack } from '@chakra-ui/react';
+import useSound from 'use-sound';
+import Alarm from '../sounds/alarm.wav';
+import { RiVolumeUpFill, RiVolumeMuteFill } from 'react-icons/ri';
 
 export function Timer() {
+  const [playOn] = useSound(Alarm, { volume: 0.25 });
   const pomodoroTime = [1500, 300, 1500, 300, 1500, 300, 1500, 900];
   const pomodoroStep = [
     'Work 1',
@@ -17,6 +21,11 @@ export function Timer() {
   const [i, setI] = useState(0);
   const [start, setStart] = useState(false);
   const [reset, setReset] = useState(true);
+  const [muted, setMuted] = useState(true);
+
+  const handleMute = () => {
+    setMuted(!muted);
+  };
 
   const handleStart = () => {
     setStart(!start);
@@ -33,6 +42,7 @@ export function Timer() {
   useInterval(() => {
     if (start) {
       if (time === 0) {
+        if (muted !== true) playOn();
         setI(i + 1);
         if (i === 7) {
           handleReset();
@@ -56,7 +66,7 @@ export function Timer() {
       <Stack py={2} direction="row" justify={'space-evenly'}>
         <Button
           size={'lg'}
-          w="50%"
+          w="100%"
           fontSize={['18px', '24px']}
           colorScheme={start ? 'red' : 'green'}
           onClick={handleStart}
@@ -65,7 +75,19 @@ export function Timer() {
         </Button>
         <Button
           size={'lg'}
-          w="50%"
+          bg={'none'}
+          fontSize={['18px', '24px']}
+          onClick={handleMute}
+        >
+          {muted ? (
+            <RiVolumeMuteFill size={48} />
+          ) : (
+            <RiVolumeUpFill size={48} />
+          )}
+        </Button>
+        <Button
+          size={'lg'}
+          w="100%"
           colorScheme={'yellow'}
           disabled={reset}
           fontSize={['18px', '24px']}
