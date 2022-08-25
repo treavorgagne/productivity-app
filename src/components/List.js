@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 
 export function List() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(['Add my tasks to do list']);
   const [taskTitle, setTaskTitle] = useState('');
 
   const handleAdd = () => {
@@ -56,7 +56,7 @@ export function List() {
               fontSize={['24px', '28px', '32px', '36px']}
               color={'teal'}
             >
-              Task List
+              Task To Do List
             </Heading>
             <Box px={4} maxWidth={'800px'}>
               {tasks.map((task, index) => (
