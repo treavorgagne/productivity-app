@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Input,
@@ -12,6 +12,16 @@ import {
 export function List() {
   const [tasks, setTasks] = useState(['Add tasks to list']);
   const [taskTitle, setTaskTitle] = useState('');
+
+  useEffect(() => {
+    const savedState = window.localStorage.getItem('tasks');
+    if (savedState !== null) setTasks(JSON.parse(savedState));
+  }, []);
+
+  useEffect(() => {
+    const newTasks = JSON.stringify([...tasks]);
+    localStorage.setItem('tasks', newTasks);
+  }, [tasks]);
 
   const handleAdd = () => {
     if (taskTitle !== '') {
@@ -60,7 +70,12 @@ export function List() {
             </Heading>
             <Box px={4} maxWidth={'800px'}>
               {tasks.map((task, index) => (
-                <Stack direction={'row'} align="center" justify="space-between">
+                <Stack
+                  key={task + index}
+                  direction={'row'}
+                  align="center"
+                  justify="space-between"
+                >
                   <Checkbox
                     py={2}
                     mx={'auto'}
