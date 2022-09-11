@@ -2,16 +2,28 @@ import React, { useState, useEffect } from 'react';
 import {
   Box,
   Input,
-  Button,
   Checkbox,
   Stack,
+  HStack,
   Heading,
   Text,
+  Button,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  ModalContent,
+  FormControl,
 } from '@chakra-ui/react';
 
 export function List() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [tasks, setTasks] = useState(['Add tasks to list']);
   const [taskTitle, setTaskTitle] = useState('');
+  const [editTask, setEditTask] = useState('');
 
   useEffect(() => {
     const savedState = window.localStorage.getItem('tasks');
@@ -41,6 +53,19 @@ export function List() {
     setTasks(prev => {
       return prev.filter((task, index) => index !== targetIndex);
     });
+  };
+
+  const handleEdit = targetIndex => {
+    console.log(`Edit ${targetIndex}`);
+    const newTasks = [...tasks];
+    newTasks[targetIndex] = editTask;
+    setTasks(newTasks);
+    setEditTask('');
+    onClose();
+  };
+
+  const handleEditTask = ({ target }) => {
+    setEditTask(target.value);
   };
 
   return (
@@ -88,14 +113,46 @@ export function List() {
                       <Text fontSize={'24px'}>{task}</Text>
                     </Box>
                   </Checkbox>
-                  <Button
-                    size={'sm'}
-                    colorScheme={'red'}
-                    onClick={() => handleDelete(index)}
-                    justifySelf={'right'}
-                  >
-                    X
-                  </Button>
+                  <HStack>
+                    <>
+                      <Button size={'sm'} colorScheme={'blue'} onClick={onOpen}>
+                        Edit
+                      </Button>
+                      <Modal onClose={onClose} isOpen={isOpen} isCentered>
+                        <ModalOverlay />
+                        <ModalContent>
+                          <ModalHeader>Edit {task}</ModalHeader>
+                          <ModalCloseButton />
+                          <FormControl>
+                            <ModalBody>
+                              <Input
+                                type={'text'}
+                                size="md"
+                                placeholder={task}
+                                onChange={handleEditTask}
+                              />
+                            </ModalBody>
+                            <ModalFooter>
+                              <Button
+                                colorScheme={'blue'}
+                                onClick={() => handleEdit(index)}
+                              >
+                                Update
+                              </Button>
+                            </ModalFooter>
+                          </FormControl>
+                        </ModalContent>
+                      </Modal>
+                    </>
+                    <Button
+                      size={'sm'}
+                      colorScheme={'red'}
+                      onClick={() => handleDelete(index)}
+                      justifySelf={'right'}
+                    >
+                      X
+                    </Button>
+                  </HStack>
                 </Stack>
               ))}
             </Box>
